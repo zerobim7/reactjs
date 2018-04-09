@@ -7,6 +7,11 @@ import Movie from './Movie';
 
 class App extends Component {
 
+  state = {
+
+  }
+
+
 componentWillMount(){
   console.log('willmount');
 }
@@ -36,9 +41,7 @@ componentDidMount(){
   }, 5000)
 }
 
-state = {
 
-}
 
 _renderMovies = () => {
   const movies = this.state.movies.map((movie, index) => {
