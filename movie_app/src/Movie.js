@@ -30,7 +30,7 @@ class MoviePoster extends Component {
 
   render(){
     return(
-      <img src= {this.props.poster2}/>
+      <img src= {this.props.poster2} alt="sorry data is null"/>
     )
   }
 }
