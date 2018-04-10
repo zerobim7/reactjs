@@ -12,46 +12,67 @@ class App extends Component {
   }
 
 
-componentWillMount(){
-  console.log('willmount');
-}
+  componentWillMount(){
+    console.log('willmount');
+  }
 
-componentDidMount(){
-  setTimeout(() => {
+  componentDidMount(){
+
+    this._getMovies();
+
+    {/*setTimeout(() => {
+      this.setState({
+        movies : [
+        {
+          title : "movie1",
+          poster : "https://www.rodalesorganiclife.com/sites/rodalesorganiclife.com/files/styles/article_main_custom_user_desktop_1x/public/articles/2017/08/dogwithplant-1000.jpg?itok=s3hiogVF&timestamp=1502817275"
+        },
+        {
+          title : "movie2",
+          poster : "https://www.pets4homes.co.uk/images/articles/1144/large/buying-a-puppy-the-most-important-questions-to-ask-the-breeder-55ae636635ead.jpg"
+        },
+        {
+          title : "movie3",
+          poster : "https://www.telegraph.co.uk/content/dam/Pets/spark/pets-at-home-2017/fluffy-white-puppy-xlarge.jpg"
+        },
+        {
+          title : "movie4",
+          poster : "https://www.pets4homes.co.uk/images/articles/1144/large/buying-a-puppy-the-most-important-questions-to-ask-the-breeder-55ae636635ead.jpg"
+        }
+        ]
+      })
+    }, 5000)*/}
+
+
+  }
+
+
+
+  _renderMovies = () => {
+    const movies = this.state.movies.map((movie, index) => {
+      console.log(movie)
+      return <Movie title = {movie.title} poster = {movie.large_cover_image} key = {movie.id}/>
+    });
+    return movies
+  }
+
+
+  _getMovies = async () => {
+    const movies = await this._callApi()
     this.setState({
-      movies : [
-      {
-        title : "movie1",
-        poster : "https://www.rodalesorganiclife.com/sites/rodalesorganiclife.com/files/styles/article_main_custom_user_desktop_1x/public/articles/2017/08/dogwithplant-1000.jpg?itok=s3hiogVF&timestamp=1502817275"
-      },
-      {
-        title : "movie2",
-        poster : "https://www.pets4homes.co.uk/images/articles/1144/large/buying-a-puppy-the-most-important-questions-to-ask-the-breeder-55ae636635ead.jpg"
-      },
-      {
-        title : "movie3",
-        poster : "https://www.telegraph.co.uk/content/dam/Pets/spark/pets-at-home-2017/fluffy-white-puppy-xlarge.jpg"
-      },
-      {
-        title : "movie4",
-        poster : "https://www.pets4homes.co.uk/images/articles/1144/large/buying-a-puppy-the-most-important-questions-to-ask-the-breeder-55ae636635ead.jpg"
-      }
-      ]
+      movies : movies
     })
-  }, 5000)
-}
+  }
 
+  _callApi = () => {
+    return fetch('https://yts.am/api/v2/list_movies.json?sort_by=rating')
+    .then(potato =>  potato.json())
+    .then(json => json.data.movies)
+    .catch(err => console.log(err))
+  }
 
-
-_renderMovies = () => {
-  const movies = this.state.movies.map((movie, index) => {
-      return <Movie title = {movie.title} poster = {movie.poster} key = {index}/>
-  });
-  return movies
-}
 
   render() {
-    console.log('render');
     return (
       <div className="App">
 
@@ -73,5 +94,7 @@ _renderMovies = () => {
     );
   }
 }
+
+
 
 export default App;
