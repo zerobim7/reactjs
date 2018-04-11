@@ -6,6 +6,9 @@ import Movie from './Movie';
 
 
 class App extends Component {
+  
+  // Render : componentWillMount() -> render() -> componentDidMount()
+  // update : componentWillReceiveProps() -> shouldComponentUpdate() -> componentWillUpdate() -> render() -> component
 
   state = {
 
@@ -49,10 +52,16 @@ class App extends Component {
 
 
   _renderMovies = () => {
-    const movies = this.state.movies.map((movie, index) => {
+    const movies = this.state.movies.map(movie => {
       console.log(movie)
-      return <Movie title = {movie.title} poster = {movie.large_cover_image} key = {movie.id}/>
-    });
+      return <Movie 
+      title = {movie.title_english} 
+      poster = {movie.medium_cover_image} 
+      key = {movie.id} 
+      genres = {movie.genres}
+      synopsis = {movie.synopsis}
+      />
+    })
     return movies
   }
 
@@ -90,6 +99,7 @@ class App extends Component {
         <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>*/}
+
       </div>
     );
   }
