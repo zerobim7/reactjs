@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Movie.css';
 import PropTypes from 'prop-types';
+import LineEllipsis from 'react-lines-ellipsis'
 
 /*
 class Movie extends Component{
@@ -22,30 +23,6 @@ class Movie extends Component{
 }
 */
 
-//class Movie와 같은 기능을 함
-function Movie({title, poster, genres, synopsis}){
-  return(
-    <div className = "Movie">
-      <div className = "Movie__Columns">
-        <MoviePoster poster = {poster}/>
-      </div>
-      <div className = "Movie__Columns">
-        <h1> {title} </h1>
-        <div className = "Movie__Genres">
-          {genres.map((genre, index) => < MovieGenre genre={genre} key={index}/>)}
-        </div>
-        <p className="Movie__Synopsis">
-          {synopsis}
-        </p>
-      </div>
-    </div>
-  )
-}
-
-
-
-
-
 /*
 class MoviePoster extends Component {
 
@@ -61,16 +38,44 @@ class MoviePoster extends Component {
 }
 */
 
+//class Movie와 같은 기능을 함
+function Movie({title, poster, genres, synopsis}){
+  return(
+    <div className = "Movie">
+      <div className = "Movie__Columns">
+        <MoviePoster poster = {poster} alt={title} />
+      </div>
+      <div className = "Movie__Columns">
+        <h1> {title} </h1>
+        <div className = "Movie__Genres">
+          {genres.map((genre, index) => < MovieGenre genre={genre} key={index}/>)}
+        </div>
+        <div className="Movie__Synopsis">
+        <LineEllipsis
+          text={synopsis}
+          maxLine='3'
+          ellipsis='...'
+          trimRight
+          basedOn='letters' 
+        />        
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+
 //class MoviePoster와 같은 기능을 함
-function MoviePoster({poster}){
+function MoviePoster({poster, alt}){
   return (
-    <img src={poster} alt="Movie Poster" />
+    <img src={poster} title={alt} className="Movie__Poster" />
   )
 }
 
 function MovieGenre({genre}){
   return (
-    <span className = "Movie__Genere">{genre}</span>
+    <span className = "Movie__Genere">{genre} </span>
   )
 }
 
@@ -80,7 +85,7 @@ function MovieSymopsis({synopsis}){
   )
 }
 
-Movie.PropTypes = {
+Movie.propTypes = {
   title: PropTypes.string.isRequired,
   poster: PropTypes.string.isRequired,
   key: PropTypes.string.isRequired,
@@ -88,14 +93,14 @@ Movie.PropTypes = {
   summary: PropTypes.string.isRequired
 }
 
-/*
-MoviePoster.prototype = {
-  poster: Prototypes.string.isRequired
+
+MoviePoster.propTypes = {
+  poster: PropTypes.string.isRequired
 }
 
-MovieGenere.prototype = {
-  genere: Prototypes.string.isRequired
+MovieGenre.propTypes = {
+  genre: PropTypes.string.isRequired
 }
-*/
+
 
 export default Movie;
