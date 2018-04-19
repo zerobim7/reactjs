@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Movie from './Movie';
+import Movie_D from './Movie_Detail';
 
 
 
@@ -65,6 +66,10 @@ class App extends Component {
     return movies
   }
 
+  __renderMoviesDetail = () => {
+   
+  }
+
 
   _getMovies = async () => {
     const movies = await this._callApi()
@@ -73,10 +78,24 @@ class App extends Component {
     })
   }
 
+  __getMovieDetail = async () => {
+    const movie_D = await this.__callDetailApi()
+    this.setState({
+      movie_D : movie_D
+    })
+  }
+
   _callApi = () => {
     return fetch('https://yts.am/api/v2/list_movies.json?sort_by=rating')
     .then(potato =>  potato.json())
     .then(json => json.data.movies)
+    .catch(err => console.log(err))
+  }
+
+  __callDetailApi = (movie_id) => {
+    return fetch('https://yts.am/api/v2/movie_details.json?movie_id='+movie_id)
+    .then(movied => movied.json())
+    .then(json => json.data.movied)
     .catch(err => console.log(err))
   }
 

@@ -39,7 +39,7 @@ class MoviePoster extends Component {
 */
 
 //class Movie와 같은 기능을 함
-function Movie({title, poster, genres, synopsis}){
+function Movie({title, poster, genres, synopsis, key}){
   return(
     <div className = "Movie">
       <div className = "Movie__Columns">
@@ -48,7 +48,7 @@ function Movie({title, poster, genres, synopsis}){
       <div className = "Movie__Columns">
         <h1> {title} </h1>
         <div className = "Movie__Genres">
-          {genres.map((genre, index) => < MovieGenre genre={genre} key={index}/>)}
+          {genres.map((genre, index) => < MovieGenre genre={genre} key={key}/>)}
         </div>
         <div className="Movie__Synopsis">
         <LineEllipsis
